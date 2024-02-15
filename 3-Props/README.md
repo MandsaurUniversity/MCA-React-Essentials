@@ -27,11 +27,11 @@ Now, let's pass multiple `props` to the Card component!
 ### The children of `props`
 
 pops.children is available on every component. It contains the content between the opening and closing parts of a component.
+
+#### Example:
 `
 <Card>Hello World!</Card>
 `
-
-
 
 #### Steps:
 1. Inside card component, we can create a new paragraph and inside it, let's pass `props.children`
@@ -42,3 +42,46 @@ pops.children is available on every component. It contains the content between t
       Hello World!
    </Card>
    ```
+
+### The children of `props` (continued...)
+
+Now, let's replace this "Hello World" with something useful!
+
+Let's create two buttons inside our Card. For this, you can go to the w3schools.com to copy the buttons code and associated styles as mentioned in the steps below.
+
+#### Steps:
+1. Go to https://www.w3schools.com/css/tryit.asp?filename=trycss_buttons_color and copy the code for creating button
+```html
+<button class="button button2">Blue</button>
+<button class="button button3">Red</button>
+```
+2. Copy the css from the w3schools page and paste it in our App.css file
+```css
+.button {
+   background-color: #04AA6D; /* Green */
+   border: none;
+   color: white;
+   padding: 15px 32px;
+   text-align: center;
+   text-decoration: none;
+   display: inline-block;
+   font-size: 16px;
+   margin: 4px 2px;
+   cursor: pointer;
+}
+
+.button2 {background-color: #008CBA;} /* Blue */
+.button3 {background-color: #f44336;} /* Red */ 
+```
+3. Change the `class` keyword in the html to `className` and change the names of buttons to **YES** and **NO**
+4. We can also extract these two buttons into a variable so we cut the `<button>` html and create a new variable like this:
+
+```javascript
+const buttonsMarkup = (
+   <div>
+   <button className="button button2">YES</button>
+   <button className="button button3">NO</button>
+   </div>
+)
+```
+5. Add this `buttonsMarkup` variable inside the Card.
