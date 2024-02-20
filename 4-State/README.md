@@ -2,18 +2,18 @@
 
 ## State
 
-In this part we are going to talk about state and since we will talk about change of `state`
+In this part we are going to talk about `state` and we will also talk about change of `state`
 
 ### `useState` and Change of State
 
 Let's start at the top of the app by creating a button which we are going to use to change the name of the card.
 
 #### Steps:
-1. Add the code for button and place it above the <Card></Card> tag inside App module
+1. Add the code for button and place it above the <Card></Card> tag inside App component
 ```javascript
 <button className="button">Change Name</button>
 ```
-2. import the `useState` module fro react: `import React, {useState} from 'react'`
+2. import the `useState` module from react: `import React, {useState} from 'react'`
 3. Create a new variable `name` and set its name as `Virat Kohli` like this: `const [name, setName] = useState('Virat Kohli')`
 4. In order to change the state, we have to create a function to change the name. Let's create a function to change the name and also add an `onClick` handler to the button.
 
@@ -24,8 +24,8 @@ Let's start at the top of the app by creating a button which we are going to use
 
   //...
 
-  <button className="button" onClick={() => changeNameHandler}>Change Name</button>
-``
+  <button className="button" onClick={changeNameHandler}>Change Name</button>
+```
 
 ### Passing function to component
 
