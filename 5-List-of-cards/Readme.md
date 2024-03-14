@@ -75,3 +75,43 @@ So, let's add a random `id` in our cards data object. Now, pass the key in the m
 
 ## Change the name of a specific card
 
+Now in this part we are going to add the input field on each card such that when you type the name in the **input** field, **Name** on the card will be changed.
+
+Go to the `Card` component and under the title, add input field and bind the value to `props.name`. Add **onChanged** as well, which will be bind to a function later.
+
+```js
+<input type="text" value={props.name} onChanged={ () => {} } />
+```
+
+Go back to the `App` component and create a new function named: `changeNameHandler`. Since we will get the name from the `<input />` box so we need an event and id from the card, hence we'll have two params passed to this function:
+```js
+const changeNameHandler = (event, id) => {
+  //1. which card
+  cardIndex = cards.findIndex(card=>card.id === id)
+  //2. make a copy of the cards
+  cards_copy = [...cards]
+  //3. change the name of the specific card
+  cards_copy[cardIndex].name = event.target.value
+  //4. set the cards with the latest version of card copy
+  setCards(cards_copy)
+}
+```
+
+Now, in the `cardsMarkup` add an event listener **`onChangeName`** and in the **Card** component, bind this event listener.
+
+```js
+  const cardsMarkup = showCard && (
+  cards.map( (card, index) => <Card
+    avatar='img_avatar.png'
+    name={card.name}
+    title= {card.title}
+    key = {card.id}
+    onDelete={ () => deleteCardHandler(index) }
+    onChangeName={(event)=>changeNameHandler(event, card.id)}
+  />)
+  )
+```
+
+```js
+<input type="text" value={props.name} onChange={ props.onChangeName } />
+```
