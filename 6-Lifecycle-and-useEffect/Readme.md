@@ -2,6 +2,8 @@
 
 We will now discuss the lifecycle and useEffect in React, but let's start with some practical changes first...
 
+## Convert functional base to class base
+
 In this section, we are starting with converting the **functional base** to **class base**
 
 First, we are going to import the `Component` from `react`
@@ -179,3 +181,6 @@ Also, now the `cardsMarkup` and `return` statements should also be inside a rend
     );
   }
 ```
+
+## Convert Card component to class base component
+
