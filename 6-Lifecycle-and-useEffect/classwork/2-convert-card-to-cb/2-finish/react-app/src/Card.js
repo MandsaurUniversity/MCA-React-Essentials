@@ -4,29 +4,29 @@ import './App.css';
 class Card extends Component {
 
     // static getDerivedStateFromProps(props, state) {
-    //     console.log('Card js getDerivedStateFromProps')
+    //     console.log('Card.js - getDerivedStateFromProps')
     //     return state
     // }
 
     // shouldComponentUpdate(nextProps, nextState) {
-    //     console.log('Card js shouldComponentUpdate')
+    //     console.log('Card.js - shouldComponentUpdate')
     //     return true
     // }
 
     // getSnapshotBeforeUpdate(prevProps, prevState) {
-    //     console.log('Card js getSnapshotBeforeUpdate')
+    //     console.log('Card.js - getSnapshotBeforeUpdate')
     //     // return null
     //     return { message: 'some snapshot' }
     // }
 
     // componentDidUpdate(prevProps, prevState, snapshot) {
-    //     console.log('Card js componentDidUpdate', snapshot)
+    //     console.log('Card.js - componentDidUpdate', snapshot)
 
     // }
 
 
     // componentWillUnmount() {
-    //     console.log('Card js component will unmount')
+    //     console.log('Card.js - component will unmount')
     // }
 
     render() { 

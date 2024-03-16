@@ -29,7 +29,7 @@ Or consider this image below:
 
 **Unmounting** is the "**death**" of the component
 
-## React lifecycle - mounting
+## React lifecycle - 1. Mounting
 
 Now we are going to talk about **mounting**. First we are going to talk about constructor, but first let's add a `console.log('App.js constructor')` in the constructor.
 
@@ -37,7 +37,7 @@ Now we are going to talk about **mounting**. First we are going to talk about co
 
 ```js
 constructor(props){
-    console.log('App.js constructor')
+    console.log('App.js - constructor')
     //...
 }
 ```
@@ -53,7 +53,7 @@ To understand `getDerivedStateFromProps` let's create a new method:
 ```js
 // inside "App.js" file
 static getDerivedStateFromProps(props, state) {
-    console.log('Card js getDerivedStateFromProps', props)
+    console.log('Card.js - getDerivedStateFromProps', props)
     return state
 }
 ```
@@ -77,7 +77,7 @@ go to the `index.js` file and create a **title** to the app (to get derived stat
 
 Let's go to the **render()** method and add this:
 
-`console.log('App.js render')`
+`console.log('App.js - render')`
 
 **React** require that you have to make the `render()` method "pure" _(**pure** functions are those which do not have side effects by making some HTTP request and always have the same output when the same inputs are passed)_
 
@@ -89,7 +89,7 @@ Let's add this next method as well (above render() method, maybe?)
 
 ```js
 componentDidMount() {
-    console.log('App.js componentDidMount')
+    console.log('App.js - componentDidMount')
 }
 ```
 
@@ -113,4 +113,99 @@ To create a production build, we have to run `npm run build` and now when you op
 
 So, we can see that it follow the order of the **constructor** which get derived from pops and from there, it go to the **render**. it renders 3 cards and then at last is the **componentDidMount**.
 
-So this is a mounting life cycles of React.
+So this is the **mounting** life cycle of React.
+
+## React lifecycle - 2. Updating
+
+We are now going to learn the second part in React lifecycle, which is **Updating**. It is the middle step among the three steps.
+
+### getDerivedStateFromProps :
+
+The first step in **Updating** is `getDerivedStateFromProps` that we already leant in previous step (Mounting). So we can add the below mentioned function to the `Card.js` component above the `render()` method:
+
+```js
+static getDerivedStateFromProps(props, state) {
+  console.log('Card.js - getDerivedStateFromProps')
+  return state
+}
+```
+
+### shouldComponentUpdate :
+
+The next part is: `shouldComponentUpdate` in which, firstly React needs to know that if a component output is not affected by the current change in state or props. Of course the default behavior is to **re-render** on every `state` change. This method is invoked **_before rendering_** when new `props` or `state` are being received. The default value should be 'true'. This method is rarely used and it only exists for performance optimization and therefore do not rely on **event** rendering and this may cause a box. So now let's add **shouldComponentUpdate** method to the `Card` component and set the default value to be 'true' at first, like this:
+
+```js
+static shouldComponentUpdate(nextProps, nextState) {
+  console.log('Card.js - shouldComponentUpdate')
+  return true
+}
+```
+
+### render :
+
+And now, the next step in **Updating** is the render() method, which we already explained in the previous step. The explanation of this step remains the same as before.
+
+### getSnapshotBeforeUpdate :
+
+Now we can go to the next step, which is: `getSnapshotBeforeUpdate`. This **getSnapshotBeforeUpdate** is a new life cycle method introduced in React. Any value returned by these lifecycle  will be passed as a parameter to **componentDidUpdate** and this is not very common. This method is used to handle some cases such as when the scope is positioned in a special way.
+
+Let's add this method as well and we are going to return some snapshot here and to see whether it will also be displayed in the **componentDidUpdate** method.
+
+```js
+getSnapshotBeforeUpdate(prevProps, prevState) {
+  console.log('Card.js - getSnapshotBeforeUpdate')
+  // return null
+  return { message: 'some snapshot' }
+}
+```
+
+### componentDidUpdate :
+
+So the last thing is the **componentDidUpdate** that we just said; this life cycle method is invoked as soon as the updating happens. The most common use case for the **componentDidUpdate** is to update the **DOM**; it responds to the `Pops` or `state` change.
+
+This is also a good place to do some HTTP request as long as you compare with the current `prop` to the previous `prop`.
+
+You can also set `state` here but remember to check where the `state` or `prop` change for the previous `state`. The improper use of `setState` can lead to an infinite loop.
+
+So now we'll add **componentDidUpdate** and we are also testing whether it will display the snapshot. And `return { message: 'some snapshot'}` <- this is the snapshot that we expect to be displayed in componentDidUpdate.
+
+```js
+componentDidUpdate(prevProps, prevState, snapshot) {
+    console.log('Card.js - componentDidUpdate', snapshot)
+}
+```
+
+Now we are going to try to build the App using `npm run build`. As you can see that this is the production build (in the console) and you can see that this is the original creation lifecycle (which is being displayed in the console) which is the `constructor` first then the `getDerivedStateFromProps` of **App.js** and then it starts `render`-ing the **App.js** and then by `render`ing the three `Card`s and then it will end with the **App.js** `componentDidMount` and you can see there is no `componentDidUpdate` here because we haven't update any changes in the `Card`.
+
+So let's try to type some words to make some changes in the 'Name' inside a `Card` and then you will be able to see `shouldComponentupdate` here as there is only one Card changed here (in which we changed the name manually). And as you can see that snapshot already passed to `componentDidUpdate`
+
+The last thing now which we have to try is to change the **return** value of `shouldComponentupdate` to 'false' and try to 'npm run build' again. So after we refresh the page again and then try to update the name in the card, since we already set `shouldComponentUpdate` to 'false', so you can see that even when we type in the name field, this can't be updated.
+
+This is how the `shouldComponentUpdate` works and how the React lifecycle of **Updating** step works.
+
+## React lifecycle - 3. Unmounting
+
+The last part of the React lifecycle is **Unmounting**. This lifecycle method is method is called just before component is unmounted and destroyed. This is the right place to do cleanup. In this method, we can do some cleanup tasks such as cancelling the network request or killing any subscription that were created in `componentDidMount`.
+
+Let's go to the `Card.js` and now we are going to add a `componentWillUnmount` method:
+
+```js
+componentWillUnmount() {
+  console.log('Card.js - component will unmount')
+}
+```
+
+In order to let this log (in the above method) appear, we have to make some method such that this `componentWillUnmount` will come into action. So let's go back to the `App.js` file and go to the **render()** method and add this on the top:
+
+```js
+render() {
+  if (this.state.showCard === false) {
+    return <div>nothing</div>
+  }
+}
+//...
+```
+
+So now the whole thing inside **return()** method will disappear. So all the Cards will also unmount. let's give it a try by firing this command: `npm start`
+
+Now when we click the `Toggle show/hide` button, all the cards will disappear along with the two Toggle buttons will also disappear and hence all the cards will unmount. Inside the console, you will see that the three cards have displayed `component will unmount` message due the the function `componentWillUnmount` which we added in the end.

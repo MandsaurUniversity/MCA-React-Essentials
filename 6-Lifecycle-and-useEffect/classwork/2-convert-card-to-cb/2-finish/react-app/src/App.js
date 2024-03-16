@@ -37,11 +37,11 @@ class App extends Component {
   }
 
   static getDerivedStateFromProps(props, state) {
-    console.log('App js getDerivedStateFromProps')
+    console.log('App.js - getDerivedStateFromProps')
     return state
   }
   componentDidMount() {
-    console.log('App js componentDidMount')
+    console.log('App.js - componentDidMount')
   }
 
   // shouldComponentUpdate(nextProps, nextState) {
@@ -88,7 +88,7 @@ class App extends Component {
     if (this.state.showCard === false) {
       return <div>nothing</div>
     }
-    console.log('App js render')
+    console.log('App.js - render')
     const classes = ['button']
     if (this.state.cards.length < 3) classes.push('pink')
     if (this.state.cards.length < 2) classes.push('red text');
