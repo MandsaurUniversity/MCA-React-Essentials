@@ -125,7 +125,7 @@ deleteCardHandler = (cardIndex) => {
   }
 */
 
-  const changeNameHandler = (event, id) => {
+  changeNameHandler = (event, id) => {
     //1. which card
     const cardIndex = cards.findIndex(card=>card.id == id)
     //2. make a copy of the cards
@@ -137,7 +137,7 @@ deleteCardHandler = (cardIndex) => {
   }
 ```
 
-Also, now the `cardsMarkup` and `return` statements should also be inside a render function:
+Also, now the `cardsMarkup` and `return` statements should also be inside a **render** function:
 
 ```js
 /*
